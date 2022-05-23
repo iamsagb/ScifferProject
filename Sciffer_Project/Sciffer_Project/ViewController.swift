@@ -70,12 +70,22 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell") as! MoviesTableViewCell
         
-        cell.titleLabel.text = "Title: \(String(describing: movies?.movieList[indexPath.row].title))"
-        cell.yearLabel.text = "Year: \(String(describing: movies?.movieList[indexPath.row].year))"
-        cell.runtimeLabel.text = "Runtime: \(String(describing: movies?.movieList[indexPath.row].runtime)) minutes"
-        cell.castLabel.text = "Cast: \(String(describing: movies?.movieList[indexPath.row].cast))"
         
-        return cell
+        // Method 1
+      //  cell.titleLabel.text = "Title :  \(movies?.movieList[indexPath.row].title ?? "")"
+        cell.yearLabel.text = "Year: \(movies?.movieList[indexPath.row].year ?? "")"
+        cell.runtimeLabel.text = "Runtime: \( movies?.movieList[indexPath.row].runtime ?? "") minutes"
+        cell.castLabel.text = "Cast: \(movies?.movieList[indexPath.row].cast ?? "")"
+        
+        
+        // Method 2
+        
+        guard let title = movies?.movieList[indexPath.row].title else { return UITableViewCell() }
+        cell.titleLabel.text = "Title : \(title)"
+      return cell
+
+
+// perfectly awesome!
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
